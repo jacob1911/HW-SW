@@ -13,18 +13,13 @@ public:
         time_acc = time_wait;
     }
 
-    int read(){
-        return measurement;
-    }
-
-    bool update(int delta_time){
+    int get_reading(int delta_time){
         time_acc += delta_time;
         if(time_acc >= time_wait){
             measurement = rand() % 6;
             time_acc = 0;
-            return true;
         }
-        return false;
+        return measurement;
     }
 };
 

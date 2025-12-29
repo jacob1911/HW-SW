@@ -6,9 +6,6 @@
 #include "intrusion_detection.cpp"
 #include "camera.h"
 #include "sensor.h"
-#include "valid_pin.cpp"
-
-#define INTRUSION_THRESHOLD 1900
 
 enum class alarm_type
 {
@@ -19,10 +16,13 @@ enum class alarm_type
 
 typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::milliseconds ms;
+typedef std::chrono::duration<float> fsec;
+
+
+int delta_time;
 
 int main()
 {
-    // Initializing system
     srand(static_cast<unsigned>(time(0)));
     Sensor s1(60);
     Sensor s2(60);

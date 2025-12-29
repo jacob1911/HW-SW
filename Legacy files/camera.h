@@ -13,7 +13,7 @@ public:
         time_acc = time_wait;
     }
 
-    bool update(int delta_time){
+    void update_camera(int delta_time){
         time_acc += delta_time;
         
         if(time_acc >= time_wait){
@@ -25,9 +25,7 @@ public:
                 }
             }
             time_acc = 0;
-            return true;
         }
-        return false;
     }
 };
 
