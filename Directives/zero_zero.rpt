@@ -1,0 +1,168 @@
+
+
+================================================================
+== Vivado HLS Report for 'intrusion_detection'
+================================================================
+* Date:           Mon Dec 29 10:00:27 2025
+
+* Version:        2018.2 (Build 2258646 on Thu Jun 14 20:25:20 MDT 2018)
+* Project:        Exam_Project_HLS
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z010clg400-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   5.00|     4.321|        0.62|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+---------+
+    |  Latency  |  Interval | Pipeline|
+    | min | max | min | max |   Type  |
+    +-----+-----+-----+-----+---------+
+    |  667|  667|  667|  667|   none  |
+    +-----+-----+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------------------+-----+-----+----------+-----------+-----------+------+----------+
+        |                               |  Latency  | Iteration|  Initiation Interval  | Trip |          |
+        |           Loop Name           | min | max |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------------------+-----+-----+----------+-----------+-----------+------+----------+
+        |- intrusion_detection_label0   |  666|  666|        74|          -|          -|     9|    no    |
+        | + intrusion_detection_label1  |   72|   72|         8|          -|          -|     9|    no    |
+        +-------------------------------+-----+-----+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+-------+-------+
+|       Name      | BRAM_18K| DSP48E|   FF  |  LUT  |
++-----------------+---------+-------+-------+-------+
+|DSP              |        -|      -|      -|      -|
+|Expression       |        -|      -|      0|    152|
+|FIFO             |        -|      -|      -|      -|
+|Instance         |        2|      4|    439|    303|
+|Memory           |        -|      -|      -|      -|
+|Multiplexer      |        -|      -|      -|     77|
+|Register         |        -|      -|    162|      -|
++-----------------+---------+-------+-------+-------+
+|Total            |        2|      4|    601|    532|
++-----------------+---------+-------+-------+-------+
+|Available        |      120|     80|  35200|  17600|
++-----------------+---------+-------+-------+-------+
+|Utilization (%)  |        1|      5|      1|      3|
++-----------------+---------+-------+-------+-------+
+
++ Detail: 
+    * Instance: 
+    +--------------------------------------+------------------------------------+---------+-------+-----+-----+
+    |               Instance               |               Module               | BRAM_18K| DSP48E|  FF | LUT |
+    +--------------------------------------+------------------------------------+---------+-------+-----+-----+
+    |intrusion_detectibkb_U1               |intrusion_detectibkb                |        0|      4|  215|    1|
+    |intrusion_detection_AXILiteS_s_axi_U  |intrusion_detection_AXILiteS_s_axi  |        2|      0|  224|  302|
+    +--------------------------------------+------------------------------------+---------+-------+-----+-----+
+    |Total                                 |                                    |        2|      4|  439|  303|
+    +--------------------------------------+------------------------------------+---------+-------+-----+-----+
+
+    * DSP48: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------+----------+-------+---+----+------------+------------+
+    |    Variable Name    | Operation| DSP48E| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------+----------+-------+---+----+------------+------------+
+    |i_1_fu_129_p2        |     +    |      0|  0|  13|           4|           1|
+    |j_1_fu_163_p2        |     +    |      0|  0|  13|           4|           1|
+    |sum_1_fu_187_p2      |     +    |      0|  0|  39|          32|          32|
+    |tmp_6_fu_151_p2      |     +    |      0|  0|  15|           8|           8|
+    |tmp_7_fu_173_p2      |     +    |      0|  0|  15|           8|           8|
+    |tmp_fu_112_p2        |     +    |      0|  0|  39|          32|          32|
+    |exitcond1_fu_123_p2  |   icmp   |      0|  0|   9|           4|           4|
+    |exitcond_fu_157_p2   |   icmp   |      0|  0|   9|           4|           4|
+    +---------------------+----------+-------+---+----+------------+------------+
+    |Total                |          |      0|  0| 152|          96|          90|
+    +---------------------+----------+-------+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-----------+----+-----------+-----+-----------+
+    |    Name   | LUT| Input Size| Bits| Total Bits|
+    +-----------+----+-----------+-----+-----------+
+    |ap_NS_fsm  |  50|         11|    1|         11|
+    |i_reg_87   |   9|          2|    4|          8|
+    |j_reg_98   |   9|          2|    4|          8|
+    |sum_fu_58  |   9|          2|   32|         64|
+    +-----------+----+-----------+-----+-----------+
+    |Total      |  77|         17|   41|         91|
+    +-----------+----+-----------+-----+-----------+
+
+    * Register: 
+    +--------------------------+----+----+-----+-----------+
+    |           Name           | FF | LUT| Bits| Const Bits|
+    +--------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                 |  10|   0|   10|          0|
+    |camera_data_load_reg_235  |  32|   0|   32|          0|
+    |i_1_reg_212               |   4|   0|    4|          0|
+    |i_reg_87                  |   4|   0|    4|          0|
+    |j_1_reg_225               |   4|   0|    4|          0|
+    |j_reg_98                  |   4|   0|    4|          0|
+    |sum_fu_58                 |  32|   0|   32|          0|
+    |tmp_4_reg_240             |  32|   0|   32|          0|
+    |tmp_6_reg_217             |   8|   0|    8|          0|
+    |tmp_reg_204               |  32|   0|   32|          0|
+    +--------------------------+----+----+-----+-----------+
+    |Total                     | 162|   0|  162|          0|
+    +--------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++------------------------+-----+-----+------------+---------------------+--------------+
+|        RTL Ports       | Dir | Bits|  Protocol  |    Source Object    |    C Type    |
++------------------------+-----+-----+------------+---------------------+--------------+
+|s_axi_AXILiteS_AWVALID  |  in |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_AWREADY  | out |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_AWADDR   |  in |   10|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_WVALID   |  in |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_WREADY   | out |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_WDATA    |  in |   32|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_WSTRB    |  in |    4|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_ARVALID  |  in |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_ARREADY  | out |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_ARADDR   |  in |   10|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_RVALID   | out |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_RREADY   |  in |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_RDATA    | out |   32|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_RRESP    | out |    2|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_BVALID   | out |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_BREADY   |  in |    1|    s_axi   |       AXILiteS      |     array    |
+|s_axi_AXILiteS_BRESP    | out |    2|    s_axi   |       AXILiteS      |     array    |
+|ap_clk                  |  in |    1| ap_ctrl_hs | intrusion_detection | return value |
+|ap_rst_n                |  in |    1| ap_ctrl_hs | intrusion_detection | return value |
+|interrupt               | out |    1| ap_ctrl_hs | intrusion_detection | return value |
++------------------------+-----+-----+------------+---------------------+--------------+
+

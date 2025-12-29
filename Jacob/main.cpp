@@ -5,7 +5,7 @@
 #include <thread>
 #include "intrusion_detec.cpp"
 
-enum class alarm_type
+enum class system_state
 {
     inactive,
     active,
@@ -23,13 +23,13 @@ int main()
 {
     srand(static_cast<unsigned>(time(0)));
 
-    alarm_type alarm = alarm_type::inactive;
+    system_state alarm = system_state::inactive;
 
     // Wait for valid PIN
-    while (alarm == alarm_type::inactive)
+    while (alarm == system_state::inactive)
     {
         int pin = get_pin(10);
-        alarm = (pin % 2 == 0) ? alarm_type::active : alarm_type::inactive;
+        alarm = (pin % 2 == 0) ? system_state::active : system_state::inactive;
         std::cout << "Pincode is: " << pin << std::endl;
     }
 
@@ -56,16 +56,16 @@ int main()
         if (intrusion_detection(signal, camera_data))
         {
             std::cout << "Intrusion detected!" << std::endl;
-            alarm = alarm_type::alarmed;
+            alarm = system_state::alarmed;
 
             auto start = steady_clock_type::now();
-            while (alarm == alarm_type::alarmed)
+            while (alarm == system_state::alarmed)
             {
-                alarm = (get_pin(10) % 2 == 0) ? alarm_type::active : alarm_type::alarmed;
+                alarm = (get_pin(10) % 2 == 0) ? system_state::active : system_state::alarmed;
 
                 if (steady_clock_type::now() - start > std::chrono::seconds(10))
                 {
-                    alarm = alarm_type::inactive;
+                    alarm = system_state::inactive;
                 }
 
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));

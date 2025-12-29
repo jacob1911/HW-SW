@@ -7,7 +7,7 @@
 #include "camera.h"
 #include "sensor.h"
 
-enum class alarm_type
+enum class system_state
 {
     inactive,
     active,
@@ -28,13 +28,13 @@ int main()
     Sensor s2(60);
     Camera c(120);
 
-    alarm_type alarm = alarm_type::inactive;
+    system_state alarm = system_state::inactive;
 
     // Wait for valid PIN
-    while (alarm == alarm_type::inactive)
+    while (alarm == system_state::inactive)
     {
         int pin = rand() % 10;
-        alarm = (pin % 2 == 0) ? alarm_type::active : alarm_type::inactive;
+        alarm = (pin % 2 == 0) ? system_state::active : system_state::inactive;
         std::cout << "Pincode is: " << pin << std::endl;
     }
 
@@ -54,17 +54,17 @@ int main()
         if (sum > 1900)
         {
             std::cout << "Intrusion detected!" << std::endl;
-            alarm = alarm_type::alarmed;
+            alarm = system_state::alarmed;
             auto start = Time::now();
 
-            while (alarm == alarm_type::alarmed)
+            while (alarm == system_state::alarmed)
             {
-                alarm = ((rand() % 2) == 0) ? alarm_type::active : alarm_type::alarmed;
+                alarm = ((rand() % 2) == 0) ? system_state::active : system_state::alarmed;
 
                 if (Time::now() - start > std::chrono::milliseconds(10))
                 {
                     std::cout << "Broke because of 10seconds";
-                    alarm = alarm_type::inactive;
+                    alarm = system_state::inactive;
                 }
 
                 // std::this_thread::sleep_for(std::chrono::milliseconds(50));

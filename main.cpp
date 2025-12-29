@@ -10,7 +10,7 @@
 
 #define INTRUSION_THRESHOLD 1900
 
-enum class alarm_type
+enum class system_state
 {
     inactive,
     active,
@@ -36,20 +36,20 @@ int main()
     auto start_alarmed = Time::now();
 
     // Setting the system to initially be INACTIVE
-    alarm_type alarm = alarm_type::inactive;
+    system_state system = system_state::inactive;
 
     while(true){
 
         // Switching execution based on state of system
-        switch(alarm)
+        switch(system)
         {
         // The system is INACTIVE
-        case alarm_type::inactive:{
+        case system_state::inactive:{
             int pin = rand() % 10;
             std::cout << "Attempts pin code: " << pin << std::endl;
             if(valid_pin(pin)){
                 std::cout << "Pin code is correct! System is now active." << std::endl;
-                alarm = alarm_type::active;
+                system = system_state::active;
             }
             else{
                 std::cout << "Pin code was incorrect." << std::endl;
@@ -58,7 +58,7 @@ int main()
         }
         
         // The system is ACTIVE
-        case alarm_type::active:{
+        case system_state::active:{
             // Time variables are updated
             cur_time = Time::now();
             int delta_time = std::chrono::duration_cast<ms>(cur_time - prev_time).count();
@@ -79,7 +79,7 @@ int main()
                 // set the the ALARMED state
                 if(sum > INTRUSION_THRESHOLD){
                     std::cout << "Intrusion detected!" << std::endl;
-                    alarm = alarm_type::alarmed;
+                    system = system_state::alarmed;
                     start_alarmed = Time::now();
                     
                 }
@@ -89,13 +89,13 @@ int main()
 
                 
         // System is ALARMED
-        case alarm_type::alarmed:{
+        case system_state::alarmed:{
             // Entering a pin can be attempted 3 times. Entering a correct pin
             // will mean leaving the ALARMED state
             if(pin_attempts < 3){
                 int pin = rand() % 10;
                 if(valid_pin(pin)){
-                    alarm = alarm_type::active;
+                    system = system_state::active;
                     std::cout << "Correct pin entered." << std::endl; 
                 }
                 else{
@@ -110,10 +110,10 @@ int main()
             if (Time::now() - start_alarmed > std::chrono::seconds(10))
             {
                 std::cout << "Broke after waiting 10 seconds." << std::endl;
-                alarm = alarm_type::active;
+                system = system_state::active;
             }
             // If the ALARMED state is exited
-            if(alarm == alarm_type::active){
+            if(system == system_state::active){
                 std::cout << "Alarm deactivated." << std::endl;
                 // Resetting pin attempts
                 pin_attempts = 0;
