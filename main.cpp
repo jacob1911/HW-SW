@@ -28,13 +28,13 @@ int main()
     Sensor s2(60);
     Camera c(120);
 
-    alarm_type alarm = alarm_type::inactive;
+    alarm_type system = alarm_type::inactive;
 
     // Wait for valid PIN
-    while (alarm == alarm_type::inactive)
+    while (system == alarm_type::inactive)
     {
         int pin = rand() % 10;
-        alarm = (pin % 2 == 0) ? alarm_type::active : alarm_type::inactive;
+        system = (pin % 2 == 0) ? alarm_type::active : alarm_type::inactive;
         std::cout << "Pincode is: " << pin << std::endl;
     }
 
@@ -54,17 +54,17 @@ int main()
         if (sum > 1900)
         {
             std::cout << "Intrusion detected!" << std::endl;
-            alarm = alarm_type::alarmed;
+            system = alarm_type::alarmed;
             auto start = Time::now();
 
-            while (alarm == alarm_type::alarmed)
+            while (system == alarm_type::alarmed)
             {
-                alarm = ((rand() % 2) == 0) ? alarm_type::active : alarm_type::alarmed;
+                system = ((rand() % 2) == 0) ? alarm_type::active : alarm_type::alarmed;
 
                 if (Time::now() - start > std::chrono::milliseconds(10))
                 {
                     std::cout << "Broke because of 10seconds";
-                    alarm = alarm_type::inactive;
+                    system = alarm_type::inactive;
                 }
 
                 // std::this_thread::sleep_for(std::chrono::milliseconds(50));
